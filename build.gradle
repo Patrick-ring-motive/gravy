@@ -1,0 +1,44 @@
+plugins {
+    id 'groovy'
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation localGroovy()
+    testImplementation localGroovy()
+}
+
+tasks.register('runGravyTests', JavaExec) {
+    description = 'Runs the self-contained Gravy test suite'
+    group = 'verification'
+    dependsOn tasks.named('testClasses')
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.example.GravyTestRunner'
+}
+
+tasks.named('test') {
+    dependsOn tasks.named('runGravyTests')
+    enabled = false
+}
+
+tasks.register('runApp', JavaExec) {
+    description = 'Runs the sample Groovy app'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.example.App'
+}
+
+tasks.register('runMain', JavaExec) {
+    description = 'Runs root main.groovy with JavaScript-style imports and globals'
+    group = 'application'
+    dependsOn tasks.named('classes')
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'groovy.ui.GroovyMain'
+    args layout.projectDirectory.file('main.groovy').asFile.absolutePath
+}
+
