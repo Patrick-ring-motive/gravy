@@ -1,0 +1,4 @@
+moduleName=gravy
+moduleVersion=1.0.0
+extensionClasses=com.example.JavaScriptFunctionExtensions,com.example.JavaScriptNumberExtensions,com.example.JavaScriptCollectionExtensions,com.example.JavaScriptGeneratorExtensions
+staticExtensionClasses=com.example.JavaScriptBuiltinStaticExtensions
